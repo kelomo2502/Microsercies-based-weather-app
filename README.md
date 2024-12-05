@@ -2,9 +2,30 @@
 
 Microservices-based application. The implementation involves creating two microservices: one for fetching weather data and another for displaying it. The primary objectives include containerizing these microservices using Docker, deploying them to a Kubernetes cluster, and accessing them through Nginx.
 
+---
+
 ## Hypothetical use case
 
 We are developing a simple static website (HTML and CSS) for a company's landing page. The goal is to containerize this application using Docker, deploy it to a Kubernetes cluster, and access it through Nginx.
+
+---
+
+## Features
+
+- Provides real-time weather updates.
+- Built with a microservices architecture.
+- Containerized with Docker for portability.
+- Deployed in a Kubernetes cluster using Kind.
+
+---
+
+## Prerequisites
+
+- Docker
+- Kubernetes (Kind for local development)
+- kubectl
+
+---
 
 ## Tasks
 
@@ -13,6 +34,8 @@ We are developing a simple static website (HTML and CSS) for a company's landing
 - Lets create a project folder called microservices based app  
 - `mkdir microservices-based-app`
 - Next inside the directory, create `index.html file`, `style.css file` and if you would like to add some interactivity to your app, you can add a `script.js file`
+
+---
 
 ### HTML
 
@@ -82,6 +105,8 @@ We are developing a simple static website (HTML and CSS) for a company's landing
 </html>
 
 ```
+
+---
 
 ### CSS
 
@@ -204,6 +229,8 @@ footer {
 
 ```
 
+---
+
 ### JS
 
 ```js
@@ -260,6 +287,8 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ```
 
+---
+
 - To oprimize our docker image , we can create a .dockerignore file to exclude unneccesary files
 
 node_modules
@@ -306,10 +335,19 @@ check the version by running `kind version`
 
 You can install kind by running `brew install kind` Note: you need to have homebrew installed already
 
+## Task 7: Setting up a kubernetes cluster
+
+After insyall kind, we would setup a kubernets cluster by running
+`kind create cluster`
+
+## Task 8: Depploying cluster
+
 We would be deploying our kubernetes cluster using kind as follows:
 
 - Firstyly, we would create a kubernetes manifest using yaml syntax
 The first file will be deployment.yaml with the following configuration
+
+### deployment.yaml
 
 ```yaml
   apiVersion: apps/v1
@@ -336,4 +374,62 @@ spec:
         - containerPort: 80 # Update with the port your app listens on
 
   ```
-  
+
+### service.yaml
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: gbenga-and-sons-service
+spec:
+  selector:
+    app: gbenga-and-sons
+  ports:
+  - protocol: TCP
+    port: 80       # Exposed port
+    targetPort: 80 # The port your app listens on
+  type: LoadBalancer
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gbenga-and-sons-service
+spec:
+  selector:
+    app: gbenga-and-sons
+  ports:
+  - protocol: TCP
+    port: 80       # Service port
+    targetPort: 80 # Container port
+  type: ClusterIP # Default type for internal services
+```
+
+```yaml
+kubectl apply -f deployment.yaml
+
+kubectl apply -f service.yaml
+
+  ```
+
+These two commands apply the configurations in our deployment and service manifest
+
+- We can verify that the pod and service are running bu using:
+  `kubectl get pods`
+  `kubectl get service`
+At this point our app has been sucessfully deployed to kubernetes cluster using kind
+![Running pods](/pods.png)
+![Running services](/services.png)
+
+## Task 9: Acessing the website
+
+Since our deployment is of type ClusterIP, the website will only be accessible internally within the pods but lets use port forwarding, so we can access the website pn our local machine by running:
+`kubectl port-forward service/gbenga-and-sons-service 8080:80`
+Then we can access on <http://localhost:8080>
+
+## Author Information
+
+👤 Author: Gbenga
+GitHub: <https://github.com/kelomo2502>
+LinkedIn: <https://www.linkedin.com/in/oyewunmi-gbenga/>
+Email: <kelvinoye@gmail.com>
