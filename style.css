@@ -1,0 +1,116 @@
+/* General Reset */
+body, h1, h2, p, ul, li, input, textarea, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+  
+  body {
+    background-color: #000;
+    color: #fff;
+    line-height: 1.6;
+  }
+  
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #222;
+    position: sticky;
+    top: 0;
+  }
+  
+  header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f90;
+  }
+  
+  header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+  }
+  
+  header nav ul li a {
+    color: #f90;
+    text-decoration: none;
+  }
+  
+  header nav ul li a:hover {
+    text-decoration: underline;
+  }
+  
+  .section {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  #home {
+    background: #111;
+    padding: 50px;
+  }
+  
+  #services {
+    background: #222;
+  }
+  
+  #about {
+    background: #111;
+  }
+  
+  #contact {
+    background: #222;
+  }
+  
+  .service-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .service-item {
+    background: #333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #f90;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  input, textarea, button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  input, textarea {
+    width: 100%;
+    background: #333;
+    color: #fff;
+  }
+  
+  button {
+    background: #f90;
+    color: #000;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background: #ffa500;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 10px;
+    background: #111;
+  }
+  
